@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/jwass91/gridguess/static/css/main.883badfe.chunk.css",
+    "main.js": "/jwass91/gridguess/static/js/main.aa9f4e8f.chunk.js",
+    "main.js.map": "/jwass91/gridguess/static/js/main.aa9f4e8f.chunk.js.map",
+    "runtime~main.js": "/jwass91/gridguess/static/js/runtime~main.7cab3758.js",
+    "runtime~main.js.map": "/jwass91/gridguess/static/js/runtime~main.7cab3758.js.map",
+    "static/js/2.3df01b7c.chunk.js": "/jwass91/gridguess/static/js/2.3df01b7c.chunk.js",
+    "static/js/2.3df01b7c.chunk.js.map": "/jwass91/gridguess/static/js/2.3df01b7c.chunk.js.map",
+    "index.html": "/jwass91/gridguess/index.html",
+    "precache-manifest.0f35a3b0781f898229c1e25816e705d9.js": "/jwass91/gridguess/precache-manifest.0f35a3b0781f898229c1e25816e705d9.js",
+    "service-worker.js": "/jwass91/gridguess/service-worker.js",
+    "static/css/main.883badfe.chunk.css.map": "/jwass91/gridguess/static/css/main.883badfe.chunk.css.map"
+  }
+}
