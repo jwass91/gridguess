@@ -258,8 +258,8 @@ class Index extends React.Component {
           <div style={{ display: generating ? 'block' : 'none' }}>
             <div style={{ margin: 14 }}>
               <Typography variant="subtitle1" gutterBottom>
-                Welcome to GridGuess... Enter between 15 and 63 items to generate your grids. Or
-                start with one of our existing lists.
+                Welcome to GridGuess... Enter between 15 and 63 items to generate your grids.
+                {/* Or start with one of our existing lists. */}
               </Typography>
             </div>
 
@@ -307,7 +307,7 @@ class Index extends React.Component {
         </div>
         <div className={classes.footer}>
           <Typography variant="body2" color="inherit">
-            Built by Jared Wasserman and Nathan Dummitt. Styled with
+            Built by Jared Wasserman and Nathan Dummitt. Styled with{' '}
             <a
               style={{ color: 'grey' }}
               href="https://material-ui.com"
