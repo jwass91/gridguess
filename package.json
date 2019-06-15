@@ -2,15 +2,21 @@
   "name": "create-react-app",
   "version": "3.2.2",
   "private": true,
+  "homepage": "https://jwass91.github.io/gridguess/",
   "dependencies": {
     "@material-ui/core": "latest",
+    "gh-pages": "^2.0.1",
+    "lodash": "^4.17.11",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-scripts": "latest"
+    "react-scripts": "latest",
+    "yarn": "^1.16.0"
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
@@ -26,5 +32,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1"
   }
 }

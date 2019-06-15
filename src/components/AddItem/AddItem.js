@@ -1,6 +1,12 @@
 import React, { memo } from 'react';
 import { TextField, Paper, Button, Grid } from '@material-ui/core';
 
+function getHelperText(props) {
+  if (props.isError) return 'That item already exists. Try adding another one.';
+  if (props.inputMax) return 'You have entered the maximum number of items allowed.';
+  return '';
+}
+
 const AddItem = memo(props => (
   <Paper style={{ margin: 14, padding: 14 }}>
     <Grid container>
@@ -13,7 +19,7 @@ const AddItem = memo(props => (
           fullWidth
           error={props.isError}
           disabled={props.inputMax}
-          helperText={props.isError ? "That item already exists. Try adding another one." : (props.inputMax ? "You have entered the maximum number of items allowed." : "")}
+          helperText={getHelperText(props)}
           color="primary"
         />
       </Grid>
@@ -25,7 +31,7 @@ const AddItem = memo(props => (
           disabled={props.inputMax || props.isError}
           onClick={props.onButtonClick}
         >
-        Add
+          Add
         </Button>
       </Grid>
     </Grid>

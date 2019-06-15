@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
-import { Typography, AppBar, Toolbar } from '@material-ui/core';
+import React, { memo } from 'react';
+import { Typography, AppBar, Toolbar, Button } from '@material-ui/core';
 
-export default class Navbar extends Component {
-	render () {
-		return (
-			<div>
-				<AppBar position="static" color="primary">
-			        <Toolbar>
-			        	<Typography variant="h6" color="inherit">
-			            	GridGuess
-			          	</Typography>
-			        </Toolbar>
-			     </AppBar>
-			</div>
-		)
-	}
-}
+const Navbar = memo(props => (
+  <div style={{ flexGrow: 1 }}>
+    <AppBar position="static" color="primary">
+      <Toolbar>
+        <Typography variant="h6" color="inherit" style={{ flexGrow: 1 }}>
+          GridGuess
+        </Typography>
+        <Button
+          onClick={props.onSettingsClick}
+          style={{ marginRight: 'theme.spacing(2)' }}
+          color="inherit"
+        >
+          Settings
+        </Button>
+      </Toolbar>
+    </AppBar>
+  </div>
+));
+
+export default Navbar;
