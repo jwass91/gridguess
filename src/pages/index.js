@@ -210,7 +210,7 @@ class Index extends React.Component {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">&quot;Settings&quot;</DialogTitle>
+            <DialogTitle id="alert-dialog-title">Settings</DialogTitle>
             <DialogContent>
               <FormControlLabel
                 control={
