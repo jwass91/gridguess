@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/gridguess/static/js/main.5904d506.chunk.js",
-    "main.js.map": "/gridguess/static/js/main.5904d506.chunk.js.map",
+    "main.js": "/gridguess/static/js/main.3cecd451.chunk.js",
+    "main.js.map": "/gridguess/static/js/main.3cecd451.chunk.js.map",
     "runtime~main.js": "/gridguess/static/js/runtime~main.eb16f0a1.js",
     "runtime~main.js.map": "/gridguess/static/js/runtime~main.eb16f0a1.js.map",
-    "static/js/2.e20b2d6c.chunk.js": "/gridguess/static/js/2.e20b2d6c.chunk.js",
-    "static/js/2.e20b2d6c.chunk.js.map": "/gridguess/static/js/2.e20b2d6c.chunk.js.map",
+    "static/js/2.aa1a5537.chunk.js": "/gridguess/static/js/2.aa1a5537.chunk.js",
+    "static/js/2.aa1a5537.chunk.js.map": "/gridguess/static/js/2.aa1a5537.chunk.js.map",
     "index.html": "/gridguess/index.html",
-    "precache-manifest.30048f21a7815298d4a58aa4990df750.js": "/gridguess/precache-manifest.30048f21a7815298d4a58aa4990df750.js",
+    "precache-manifest.afdee332c926c7cac4fb16be6d6aed1a.js": "/gridguess/precache-manifest.afdee332c926c7cac4fb16be6d6aed1a.js",
     "service-worker.js": "/gridguess/service-worker.js"
   }
 }
