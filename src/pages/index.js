@@ -337,6 +337,7 @@ class Index extends React.Component {
                   <FormControlLabel value="nfl" control={<Radio />} label="NFL Teams" />
                   <FormControlLabel value="nhl" control={<Radio />} label="NHL Teams" />
                   <FormControlLabel value="mlb" control={<Radio />} label="MLB Teams" />
+                  <FormControlLabel value="emojis" control={<Radio />} label="Emojis" />
                 </RadioGroup>
               </FormControl>
             </DialogContent>
