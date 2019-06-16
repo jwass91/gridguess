@@ -1,13 +1,16 @@
 import React from 'react';
 import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-
+import axios from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
 import withRoot from '../withRoot';
 import { Navbar, AddItem, CreationList, Grids } from '../components/index';
 
@@ -24,6 +27,11 @@ const styles = {
     bottom: '0',
     width: '100%',
     padding: '10px',
+  },
+  hoverPointer: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
 };
 
@@ -52,10 +60,12 @@ class Index extends React.Component {
       g16: [],
       g32: [],
       neededgrids: 0,
-      open: false,
+      settingsOpen: false,
+      prefillOpen: false,
       shuffled: false,
       reverse: false,
       labeled: false,
+      prefill: 'birthdays',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -116,7 +126,7 @@ class Index extends React.Component {
     });
   };
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
     const { text, used } = this.state;
     if (!text.length) {
@@ -128,7 +138,7 @@ class Index extends React.Component {
     }
     const newItem = {
       text,
-      uid: Date.now(),
+      key: Date.now(),
       id: used.length + 1,
       bArray: (used.length + 1)
         .toString(2)
@@ -143,19 +153,27 @@ class Index extends React.Component {
     if (used.length + 1 === 63) {
       this.setState({ inputMax: true });
     }
-  }
+  };
 
-  handleChange(e) {
+  handleChange = e => {
     this.setState({ text: e.target.value, inputError: false });
-  }
+  };
 
   render() {
     this.handleSettingsOpen = () => {
-      this.setState({ open: true });
+      this.setState({ settingsOpen: true });
     };
 
     this.handleSettingsClose = () => {
-      this.setState({ open: false });
+      this.setState({ settingsOpen: false });
+    };
+
+    this.handlePrefillOpen = () => {
+      this.setState({ prefillOpen: true });
+    };
+
+    this.handlePrefillClose = () => {
+      this.setState({ prefillOpen: false });
     };
 
     this.handleChangeShuffle = () => {
@@ -176,8 +194,45 @@ class Index extends React.Component {
       this.setState(state => ({ labeled: !state.labeled }));
     };
 
+    this.handlePrefillChange = e => {
+      this.setState({ prefill: e.target.value });
+    };
+
+    this.generateFromList = e => {
+      const { prefill } = this.state;
+      this.handlePrefillClose();
+      axios
+        .get(`${process.env.PUBLIC_URL}/lists/${prefill}.csv`)
+        .then(response => {
+          const items = [];
+          let used = 0;
+          response.data
+            .split('\n')
+            .slice(0, 63)
+            .forEach(text => {
+              const newItem = {
+                text,
+                key: Date.now() + used + 1,
+                id: used + 1,
+                bArray: (used + 1)
+                  .toString(2)
+                  .padStart(6, '0')
+                  .split(''),
+              };
+              used += 1;
+              items.push(newItem);
+            });
+          this.setState({ items });
+          this.handleGenerateGrids(e);
+        })
+        .catch(error => {
+          throw new Error(error);
+        });
+    };
+
     const {
-      open,
+      settingsOpen,
+      prefillOpen,
       shuffled,
       reverse,
       labeled,
@@ -193,6 +248,7 @@ class Index extends React.Component {
       g16,
       g32,
       neededgrids,
+      prefill,
     } = this.state;
 
     const { classes } = this.props;
@@ -205,7 +261,7 @@ class Index extends React.Component {
           <Dialog
             fullWidth
             maxWidth="xl"
-            open={open}
+            open={settingsOpen}
             onClose={this.handleSettingsClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
@@ -255,11 +311,58 @@ class Index extends React.Component {
             </DialogActions>
           </Dialog>
 
+          <Dialog
+            fullWidth
+            maxWidth="xl"
+            open={prefillOpen}
+            onClose={this.handlePrefillClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">Start with an existing list</DialogTitle>
+            <DialogContent>
+              <FormControl component="fieldset">
+                <RadioGroup value={prefill} onChange={this.handlePrefillChange}>
+                  <FormControlLabel value="birthdays" control={<Radio />} label="Birthdays" />
+                  <FormControlLabel value="states" control={<Radio />} label="US States" />
+                  <FormControlLabel
+                    value="capitals"
+                    control={<Radio />}
+                    label="US State Capitals"
+                  />
+                  <FormControlLabel value="presidents" control={<Radio />} label="US Presidents" />
+                  <FormControlLabel value="asia" control={<Radio />} label="Asian Countries" />
+                  <FormControlLabel value="europe" control={<Radio />} label="European Countries" />
+                  <FormControlLabel value="nba" control={<Radio />} label="NBA Teams" />
+                  <FormControlLabel value="nfl" control={<Radio />} label="NFL Teams" />
+                  <FormControlLabel value="nhl" control={<Radio />} label="NHL Teams" />
+                  <FormControlLabel value="mlb" control={<Radio />} label="MLB Teams" />
+                </RadioGroup>
+              </FormControl>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handlePrefillClose} color="primary" autoFocus>
+                Cancel
+              </Button>
+              <Button onClick={this.generateFromList} color="primary" autoFocus>
+                Generate Grids
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           <div style={{ display: generating ? 'block' : 'none' }}>
             <div style={{ margin: 14 }}>
               <Typography variant="subtitle1" gutterBottom>
-                Welcome to GridGuess... Enter between 15 and 63 items to generate your grids.
-                {/* Or start with one of our existing lists. */}
+                Welcome to GridGuess... Enter between 15 and 63 items to generate your grids. Or
+                start with one of our{' '}
+                <span
+                  className={classes.hoverPointer}
+                  style={{ textDecoration: 'underline' }}
+                  onClick={this.handlePrefillOpen}
+                >
+                  existing lists
+                </span>
+                .
               </Typography>
             </div>
 
